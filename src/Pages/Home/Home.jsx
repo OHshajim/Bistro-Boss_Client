@@ -3,6 +3,7 @@ import Blogs from "./Blogs/Blogs";
 import Categories from "./Categories";
 import Feature from "./Feature";
 import Menu from "./Menu";
+import Testimonials from "./Testimonials";
 
 const Home = () => {
     return (
@@ -11,9 +12,10 @@ const Home = () => {
             <div className="max-w-screen-2xl mx-auto space-y-20">
                 <Categories />
                 <Blogs />
-                <Menu/>
+                <Menu />
             </div>
-            <Feature/>
+            <Feature />
+            <Testimonials />
         </div>
     );
 };
