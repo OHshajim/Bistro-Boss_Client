@@ -3,7 +3,7 @@ import SectionsTitle from "../../Shared/SectionsTitle";
 import { useState } from "react";
 import MenuItem from "../../Shared/MenuItem";
 
-const Menu = () => {
+const PopularMenu = () => {
     const [menu, setMenu] = useState([])
     useEffect(() => {
         fetch('menu.json')
@@ -21,8 +21,12 @@ const Menu = () => {
                     menu.map(item => <MenuItem key={item._id} item={item} />)
                 }
             </div>
+
+            <div className="bg-black mt-20">
+                <h1 className="text-5xl text-white bg-black p-24 text-center">Call Us : +88 01518933208</h1>
+            </div>
         </section>
     );
 };
 
-export default Menu;
+export default PopularMenu;
