@@ -3,8 +3,8 @@ import Banner from "./Banner";
 import Blogs from "./Blogs/Blogs";
 import Categories from "./Categories";
 import Feature from "./Feature";
-import Menu from "./PopularMenu";
 import Testimonials from "./Testimonials";
+import PopularMenu from "./PopularMenu";
 
 const Home = () => {
     return (
@@ -16,7 +16,7 @@ const Home = () => {
             <div className="max-w-screen-2xl mx-auto space-y-20">
                 <Categories />
                 <Blogs />
-                <Menu />
+                <PopularMenu/>
             </div>
             <Feature />
             <Testimonials />
