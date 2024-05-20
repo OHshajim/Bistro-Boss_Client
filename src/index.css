@@ -10,3 +10,8 @@
     display: flex;
     justify-content: center;
 }
+.swiper-pagination{
+    position: relative !important;
+    margin-top: 32px;
+    
+}
