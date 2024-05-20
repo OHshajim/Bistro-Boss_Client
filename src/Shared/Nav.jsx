@@ -5,7 +5,7 @@ const Nav = () => {
         <li><Link>Home</Link></li>
     </>
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-black bg-opacity-50 fixed z-10 text-white" >
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -23,7 +23,7 @@ const Nav = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <a className="btn btn-outline text-white">Button</a>
             </div>
         </div>
     );
