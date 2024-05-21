@@ -1,12 +1,6 @@
 import { Parallax} from 'react-parallax';
 
 const Cover = ({ BGImage, subheading, heading, style }) => {
-    const styles = {
-        backgroundImage: ` url(  ${BGImage} )`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-
-    }
     return (
         <Parallax
             blur={{ min: -90, max: 70 }}

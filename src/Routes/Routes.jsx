@@ -3,9 +3,9 @@ import {
 } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../Pages/Home/Home";
-import Menu from "../Pages/Menu";
 import Shop from "../Pages/Shop";
 import Contact from "../Pages/Contact";
+import Menu from "../Pages/Menu/Menu";
 
 const Routes = createBrowserRouter([
     {
