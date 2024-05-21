@@ -6,12 +6,39 @@
 
 /* styles */
 
-.thumbs{
+.thumbs {
     display: flex;
     justify-content: center;
 }
-.swiper-pagination{
+
+.swiper-pagination {
     position: relative !important;
     margin-top: 32px;
-    
+
+}
+
+/*Tabs */
+.react-tabs__tab-list {
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.react-tabs__tab {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.react-tabs__tab--selected {
+    font-size: 22px;
+    font-weight: 700;
+    background: transparent !important;
+    border: none !important;
+    color: #BB8506 !important;
+}
+.react-tabs__tab:focus:after {
+    background: #BB8506 !important ;
+
 }
