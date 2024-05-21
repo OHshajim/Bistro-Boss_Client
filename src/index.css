@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
+    margin-bottom: 40px !important;
 }
 
 .react-tabs__tab {
@@ -32,7 +32,7 @@
 }
 
 .react-tabs__tab--selected {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     background: transparent !important;
     border: none !important;
