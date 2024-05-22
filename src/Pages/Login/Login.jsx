@@ -1,12 +1,30 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 const Login = () => {
+    const [disable, setDisable] = useState(true)
+    const captchaRef = useRef()
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [])
     const handleLogin = e => {
         e.preventDefault();
-        const form = e.target ;
-        const email = form.email.value ;
-        const password = form.password.value ;
-        console.log(email ,password);
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password);
+    }
+    const handleValidate = () => {
+        const user_captcha_value = captchaRef.current.value;
+        console.log(user_captcha_value);
+        if (validateCaptcha(user_captcha_value) == true) {
+            setDisable(false)
+        }
+        else {
+            setDisable(true)
+            captchaRef.current.value = ""
+        }
     }
     return (
         <div className="flex justify-center items-center h-screen">
@@ -34,8 +52,10 @@ const Login = () => {
 
                         <div className="mt-4">
                             <label className="block mb-2 text-sm font-medium " >Email Address</label>
-                            <input className="block w-full px-4 py-2  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300" type="email" 
-                            name="email" />
+                            <input className="block w-full px-4 py-2  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300" type="email"
+                                name="email"
+                                placeholder="Enter Your Email"
+                            />
                         </div>
 
                         <div className="mt-4">
@@ -43,11 +63,24 @@ const Login = () => {
                                 <label className="block mb-2 text-sm font-medium " >Password</label>
                             </div>
 
-                            <input className="block w-full px-4 py-2  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300" type="password" name="password" />
+                            <input className="block w-full px-4 py-2  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300" type="password" name="password"
+                                placeholder="Enter Your Password"
+                            />
+                        </div>
+
+                        {/* captcha */}
+                        <div className="mt-7">
+                            <LoadCanvasTemplate />
+                            <div className="join w-full mt-1">
+                                <input className="my-2 block w-full px-4 py-2  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300 join-item" type="text" name="captcha" ref={captchaRef}
+                                    placeholder="type the text above"
+                                />
+                                <button onClick={handleValidate} className="border px-4 py-2 my-2 text-[#D1A054] border-[#D1A054]  join-item btn">Validation</button>
+                            </div>
                         </div>
 
                         <div className="mt-6">
-                            <button className="btn w-full px-6 py-3 text-sm font-medium text-white capitalize transition-colors duration-300 transform bg-[#D1A054] rounded-lg ">
+                            <button disabled={disable} className="btn w-full px-6 py-3 text-sm font-medium text-white capitalize transition-colors duration-300 transform bg-[#D1A054] rounded-lg ">
                                 Sign In
                             </button>
                         </div>
