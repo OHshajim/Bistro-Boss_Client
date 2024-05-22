@@ -3,20 +3,20 @@ import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/Firebase.config";
 
 const Provider = new GoogleAuthProvider();
-const AuthContext = createContext()
+export  const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    // // sign in with email and password
-    // const createUser = (email, password) => {
-    //     createUserWithEmailAndPassword(auth, email, password)
-    //         .then((result) => {
-    //             console.log(result);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }
+    // sign up with email and password
+    const createUser = (email, password) => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     // login with email and password
     const loginUser = (email, password) => {
@@ -31,12 +31,13 @@ const AuthProvider = ({ children }) => {
     }
 
     // login with gmail 
-    const loginWithGmail = (auth) => {
+    const loginWithGmail = () => {
         setLoading(true)
         signInWithPopup(auth, Provider)
             .then((result) => {
                 console.log(result);
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 console.log(error);
             });
     }
@@ -47,7 +48,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser)
             setLoading(false)
         });
-       return ()=> { return subscribe() } 
+        return () => { return subscribe() }
     }, [])
 
 
@@ -60,7 +61,9 @@ const AuthProvider = ({ children }) => {
         loginUser,
         loginWithGmail,
         logout,
-        loading
+        loading ,
+        createUser ,
+        user 
     }
     return (
         <AuthContext.Provider value={info}>

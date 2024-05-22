@@ -1,12 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
+import { BsGoogle } from "react-icons/bs";
+import { AuthContext } from "../../Provider/AuthProvider";
 const Login = () => {
     const [disable, setDisable] = useState(true)
     const captchaRef = useRef()
+    const { loginUser,
+        loginWithGmail, } = useContext(AuthContext)
+
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, [])
@@ -16,6 +21,13 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        loginUser(email, password)
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     const handleValidate = () => {
         const user_captcha_value = captchaRef.current.value;
@@ -27,6 +39,16 @@ const Login = () => {
             setDisable(true)
             captchaRef.current.value = ""
         }
+    }
+
+    const handleGoogle = () => {
+        loginWithGmail()
+            // .then(result => {
+            //     console.log(result);
+            // })
+            // .catch(error => {
+            //     console.log(error);
+            // })
     }
     return (
         <div className="flex justify-center items-center h-screen" style={{
@@ -102,6 +124,11 @@ const Login = () => {
                             New here? Create a
                             <Link className="font-medium hover:underline"> New Account</Link>
                         </p>
+                    </div>
+                    <div className="flex justify-center  mt-3">
+                        <button onClick={handleGoogle} className="btn btn-outline rounded-full text-xl p-3 text-[#444444] border-[#444444] border-2">
+                            <BsGoogle />
+                        </button>
                     </div>
                 </div>
             </div>
