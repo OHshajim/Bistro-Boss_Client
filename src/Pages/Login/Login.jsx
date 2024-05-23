@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
@@ -8,9 +8,9 @@ import { BsGoogle } from "react-icons/bs";
 import { AuthContext } from "../../Provider/AuthProvider";
 const Login = () => {
     const [disable, setDisable] = useState(true)
-    const captchaRef = useRef()
+
     const { loginUser,
-        loginWithGmail, } = useContext(AuthContext)
+        loginWithGmail } = useContext(AuthContext)
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -21,34 +21,38 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        // login
         loginUser(email, password)
-            .then(result => {
+            .then((result) => {
                 console.log(result);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
-            })
+            });
     }
-    const handleValidate = () => {
-        const user_captcha_value = captchaRef.current.value;
+    const handleValidate = (e) => {
+        const user_captcha_value = e.target.value;
         console.log(user_captcha_value);
         if (validateCaptcha(user_captcha_value) == true) {
             setDisable(false)
         }
         else {
             setDisable(true)
-            captchaRef.current.value = ""
+            e.target.value = ""
         }
     }
 
     const handleGoogle = () => {
         loginWithGmail()
-            // .then(result => {
-            //     console.log(result);
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // })
+            .then(result => {
+                console.log(result);
+                Navigate('/')
+                alert('logged')
+            })
+            .catch(error => {
+                console.log(error);
+                alert('not logged')
+            });
     }
     return (
         <div className="flex justify-center items-center h-screen" style={{
@@ -105,10 +109,9 @@ const Login = () => {
                         <div className="mt-7">
                             <LoadCanvasTemplate />
                             <div className="join w-full mt-1 ">
-                                <input className="my-2 block w-full px-4 py-2  bg-white  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300 join-item" type="text" name="captcha" ref={captchaRef}
+                                <input onBlur={handleValidate} className="my-2 block w-full px-4 py-2  bg-white  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300 join-item" type="text" name="captcha"
                                     placeholder="type the text above"
                                 />
-                                <button onClick={handleValidate} className="border px-4 py-2 my-2  bg-white text-[#D1A054] border-[#D1A054]  join-item btn">Validation</button>
                             </div>
                         </div>
 
@@ -122,13 +125,16 @@ const Login = () => {
                     <div className="flex items-center justify-center mt-4">
                         <p className="text-xs  uppercase text-[#D1A054]">
                             New here? Create a
-                            <Link className="font-medium hover:underline"> New Account</Link>
+                            <Link to='/signUp' className="font-medium hover:underline"> New Account</Link>
                         </p>
                     </div>
-                    <div className="flex justify-center  mt-3">
-                        <button onClick={handleGoogle} className="btn btn-outline rounded-full text-xl p-3 text-[#444444] border-[#444444] border-2">
-                            <BsGoogle />
-                        </button>
+                    <div className="flex flex-col  items-center mt-3">
+                        <p className="text-sm font-medium">Or Sign in With </p>
+                        <div className="flex justify-center mt-2">
+                            <button onClick={handleGoogle} className="btn btn-outline rounded-full text-xl p-3 text-[#444444] border-[#444444] border-2">
+                                <BsGoogle />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

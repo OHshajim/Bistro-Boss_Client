@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Nav = () => {
+    const {user ,logout} = useContext(AuthContext)
     const links = <>
         <li><NavLink to='/' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25] " : ""
@@ -34,7 +37,11 @@ const Nav = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to='/login' className="btn btn-outline text-white">login</Link>
+                {
+                    user ?
+                        <button onClick={logout()} className="btn btn-outline text-white">logout</button>:
+                        <Link to='/login' className="btn btn-outline text-white">login</Link>
+                }
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import Nav from "../Shared/Nav";
 
 const Main = () => {
     const location = useLocation()
-    const noNavFooter = location.pathname.includes('login')
+    const noNavFooter = location.pathname.includes('login')||location.pathname.includes('signUp')
     return (
         <div>
             {noNavFooter || <Nav />}
