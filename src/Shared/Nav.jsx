@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Nav = () => {
@@ -7,7 +7,6 @@ const Nav = () => {
     const handleLogout = () => {
         logout()
     }
-    console.log(user?.photoURL);
     const links = <>
         <li><NavLink to='/' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25] " : ""

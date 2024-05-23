@@ -1,14 +1,16 @@
 import { Helmet } from "react-helmet-async";
 import { BsGoogle } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 const SignUp = () => {
     const { createUser, loginWithGmail } = useContext(AuthContext)
-
+    const location = useLocation()
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
@@ -24,9 +26,34 @@ const SignUp = () => {
             .than((result) => {
                 console.log(result.user);
                 reset();
+                Swal.fire({
+                    title: "Congratulation !!!",
+                    text: ' Successfully Logged in',
+                    icon: "success",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(location?.state ? location?.state : '/')
             })
             .catch((error) => {
                 console.log(error);
+                Swal.fire({
+                    title: "Error",
+                    text: "try again",
+                    icon: "error"
+                });
             });
     };
 
@@ -34,9 +61,34 @@ const SignUp = () => {
         loginWithGmail()
             .then((result) => {
                 console.log(result);
+                Swal.fire({
+                    title: "Congratulation !!!",
+                    text: ' Successfully Logged in',
+                    icon: "success",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(location?.state ? location?.state : '/')
             })
             .catch((error) => {
                 console.log(error);
+                Swal.fire({
+                    title: "Error",
+                    text: "try again",
+                    icon: "error"
+                });
             });
     };
     return (

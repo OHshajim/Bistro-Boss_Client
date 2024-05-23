@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
 import { BsGoogle } from "react-icons/bs";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 const Login = () => {
     const [disable, setDisable] = useState(true)
-
+    const location = useLocation()
+    const navigate = useNavigate()
     const { loginUser,
         loginWithGmail } = useContext(AuthContext)
 
@@ -25,9 +27,34 @@ const Login = () => {
         loginUser(email, password)
             .then((result) => {
                 console.log(result.user);
+                Swal.fire({
+                    title: "Congratulation !!!",
+                    text: ' Successfully Logged in',
+                    icon: "success",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(location?.state ? location?.state : '/')
             })
             .catch((error) => {
                 console.log(error);
+                Swal.fire({
+                    title: "Error",
+                    text: "try again",
+                    icon: "error"
+                });
             });
     }
     const handleValidate = (e) => {
@@ -46,9 +73,34 @@ const Login = () => {
         loginWithGmail()
             .then(result => {
                 console.log(result.user);
+                Swal.fire({
+                    title: "Congratulation !!!",
+                    text: ' Successfully Logged in',
+                    icon: "success",
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                navigate(location?.state ? location?.state : '/')
             })
             .catch(error => {
                 console.log(error);
+                Swal.fire({
+                    title: "Error",
+                    text: "try again",
+                    icon: "error"
+                });
             });
     }
     return (
