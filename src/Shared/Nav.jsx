@@ -1,9 +1,13 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Nav = () => {
-    const {user ,logout} = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
+    const handleLogout = () => {
+        logout()
+    }
+    console.log(user?.photoURL);
     const links = <>
         <li><NavLink to='/' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25] " : ""
@@ -17,6 +21,19 @@ const Nav = () => {
         <li><NavLink to='/contact' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25]" : ""
         }>Contact Us</NavLink></li>
+
+        {
+            user ?
+                <>
+                    <button onClick={handleLogout} className="btn bg-transparent border-none text-white font-extrabold text-md  mr-3 ml-5 hover:bg-transparent ">Log out</button>
+                    <img alt="photo" src={user?.photoURL} className="rounded-full w-12" />
+                </> :
+                <>
+                    <li><NavLink to='/login' className={({ isActive, isPending }) =>
+                        isPending ? "pending" : isActive ? "text-[#EEFF25]" : ""
+                    }>Login</NavLink></li>
+                </>
+        }
     </>
     return (
         <div className="navbar bg-black bg-opacity-50 fixed z-10 text-white" >
@@ -31,18 +48,12 @@ const Nav = () => {
                 </div>
                 <a className="btn btn-ghost text-xl">Bistro Boss</a>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 font-extrabold">
+            <div className="navbar-center hidden lg:flex navbar-end">
+                <ul className="menu menu-horizontal px-1 font-extrabold items-center">
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
-                {
-                    user ?
-                        <button onClick={logout()} className="btn btn-outline text-white">logout</button>:
-                        <Link to='/login' className="btn btn-outline text-white">login</Link>
-                }
-            </div>
+
         </div>
     );
 };

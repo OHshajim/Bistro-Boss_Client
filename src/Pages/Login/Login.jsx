@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
@@ -24,7 +24,7 @@ const Login = () => {
         // login
         loginUser(email, password)
             .then((result) => {
-                console.log(result);
+                console.log(result.user);
             })
             .catch((error) => {
                 console.log(error);
@@ -45,13 +45,10 @@ const Login = () => {
     const handleGoogle = () => {
         loginWithGmail()
             .then(result => {
-                console.log(result);
-                Navigate('/')
-                alert('logged')
+                console.log(result.user);
             })
             .catch(error => {
                 console.log(error);
-                alert('not logged')
             });
     }
     return (
