@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 const SignUp = () => {
-    const { createUser, loginWithGmail } = useContext(AuthContext)
+    const { createUser, loginWithGmail, updateUser } = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
     const {
@@ -20,32 +20,43 @@ const SignUp = () => {
 
 
     const onSubmit = (data) => {
-        const { email, password } = data
+        const { email, password, photoURL, name } = data
         console.log(data, email, password)
         createUser(email, password)
-            .than((result) => {
+            .then((result) => {
                 console.log(result.user);
-                reset();
-                Swal.fire({
-                    title: "Congratulation !!!",
-                    text: ' Successfully Logged in',
-                    icon: "success",
-                    showClass: {
-                        popup: `
-                        animate__animated
-                        animate__fadeInUp
-                        animate__faster
-                      `
-                    },
-                    hideClass: {
-                        popup: `
-                        animate__animated
-                        animate__fadeOutDown
-                        animate__faster
-                      `
-                    }
-                });
-                navigate(location?.state ? location?.state : '/')
+                updateUser(name, photoURL)
+                    .then(() => {
+                        reset();
+                        Swal.fire({
+                            title: "Congratulation !!!",
+                            text: ' Successfully Logged in',
+                            icon: "success",
+                            showClass: {
+                                popup: `
+                            animate__animated
+                            animate__fadeInUp
+                            animate__faster
+                          `
+                            },
+                            hideClass: {
+                                popup: `
+                            animate__animated
+                            animate__fadeOutDown
+                            animate__faster
+                          `
+                            }
+                        });
+                        navigate(location?.state ? location?.state : '/')
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        Swal.fire({
+                            title: "Error",
+                            text: "try again",
+                            icon: "error"
+                        });
+                    });
             })
             .catch((error) => {
                 console.log(error);
@@ -134,6 +145,17 @@ const SignUp = () => {
                                     {...register("name", { required: true })}
                                 />
                                 {errors.name && <span className="text-red-600 font-semibold">name is required</span>}
+                            </div>
+
+                            <div className="mt-7">
+                                <div className="flex justify-between">
+                                    <label className="block mb-2 text-sm font-medium " >PhotoURL</label>
+                                </div>
+                                <input className="my-2 block w-full px-4 py-2  bg-white  border rounded-lg  focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300 join-item" type="text" name="photoURL"
+                                    placeholder="Enter PhotoURL "
+                                    {...register("photoURL", { required: true })}
+                                />
+                                {errors.name && <span className="text-red-600 font-semibold">PhotoURL is required</span>}
                             </div>
 
                             <div className="mt-4 ">
