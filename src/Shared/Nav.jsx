@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { TiShoppingCart } from "react-icons/ti";
 
 const Nav = () => {
     const { user, logout } = useContext(AuthContext)
@@ -20,7 +21,10 @@ const Nav = () => {
         <li><NavLink to='/contact' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25]" : ""
         }>Contact Us</NavLink></li>
-
+        <li><NavLink to='/shop' className="text-[21px]">
+            <TiShoppingCart />
+            <span className=" badge rounded-full bg-red-600 text-white p-1 text-sm border-none">10</span>
+        </NavLink></li>
         {
             user ?
                 <>
