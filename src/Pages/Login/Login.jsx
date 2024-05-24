@@ -7,12 +7,15 @@ import loginBG from '../../assets/others/authentication.png'
 import { BsGoogle } from "react-icons/bs";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+
+
 const Login = () => {
     const [disable, setDisable] = useState(true)
     const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
+    console.log(from ,location);
     const navigate = useNavigate()
-    const { loginUser,
-        loginWithGmail } = useContext(AuthContext)
+    const { loginUser, loginWithGmail } = useContext(AuthContext)
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -46,7 +49,7 @@ const Login = () => {
                       `
                     }
                 });
-                navigate(location?.state ? location?.state : '/')
+                navigate(from)
             })
             .catch((error) => {
                 console.log(error);
@@ -92,7 +95,7 @@ const Login = () => {
                       `
                     }
                 });
-                navigate(location?.state ? location?.state : '/')
+                navigate(from)
             })
             .catch(error => {
                 console.log(error);

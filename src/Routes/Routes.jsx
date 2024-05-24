@@ -8,6 +8,8 @@ import Menu from "../Pages/Menu/Menu";
 import Order from "../Pages/OrderFood/Order/Order";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import Cart from "../Pages/Cart/Cart";
+import PrivetRoute from "./PrivetRoute";
 
 const Routes = createBrowserRouter([
     {
@@ -29,6 +31,10 @@ const Routes = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact />,
+            },
+            {
+                path: "/carts",
+                element: <PrivetRoute><Cart/></PrivetRoute>,
             },
             {
                 path: "/login",
