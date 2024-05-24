@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { NavLink, } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { TiShoppingCart } from "react-icons/ti";
+import useCart from "../Hooks/useCart";
 
 const Nav = () => {
     const { user, logout } = useContext(AuthContext)
+    const [cart] = useCart()
     const handleLogout = () => {
         logout()
     }
@@ -23,7 +25,7 @@ const Nav = () => {
         }>Contact Us</NavLink></li>
         <li><NavLink to='/carts' className="text-[21px]">
             <TiShoppingCart />
-            <span className=" badge rounded-full bg-red-600 text-white p-1 text-sm border-none">10</span>
+            <span className=" badge rounded-full bg-red-600 text-white p-1 text-sm border-none">{cart.length}</span>
         </NavLink></li>
         {
             user ?
