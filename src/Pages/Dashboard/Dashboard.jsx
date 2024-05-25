@@ -12,7 +12,7 @@ const Dashboard = () => {
                         className={({ isActive, isPending }) =>
                             isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
                         }><FaHome className="text-2xl" />
-                        Admin Home</NavLink>
+                        User Home</NavLink>
                     </li>
                     <li><NavLink to='/dashboard/reservation'
                         className={({ isActive, isPending }) =>
@@ -55,7 +55,7 @@ const Dashboard = () => {
                     </li>
                 </ul>
             </div>
-            <div className="">
+            <div className="flex-1">
                 <Outlet />
             </div>
         </div>
