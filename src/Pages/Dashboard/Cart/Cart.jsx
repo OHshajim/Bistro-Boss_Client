@@ -1,12 +1,15 @@
 import { TbTrash } from "react-icons/tb";
 import useCart from "../../../Hooks/useCart";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const Cart = () => {
     const [cart] = useCart()
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+    const axiosSecure = useAxiosSecure();
+    const [, refetch] = useCart()
+
     const handleDelete = (id) => {
-        console.log(id);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -17,11 +20,17 @@ const Cart = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                // Swal.fire({
-                //     title: "Deleted!",
-                //     text: "Your file has been deleted.",
-                //     icon: "success"
-                // });
+                axiosSecure.delete(`/carts/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
             }
         });
     }
