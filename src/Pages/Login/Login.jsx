@@ -13,7 +13,7 @@ const Login = () => {
     const [disable, setDisable] = useState(true)
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
-    console.log(from, location);
+    // console.log(from, location);
     const navigate = useNavigate()
     const { loginUser } = useContext(AuthContext)
 

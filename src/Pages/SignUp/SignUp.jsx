@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { BsGoogle } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
@@ -13,6 +12,7 @@ const SignUp = () => {
     const { createUser, updateUser } = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/'
     const axiosPublic = useAxiosPublic()
     const {
         register,
@@ -55,7 +55,7 @@ const SignUp = () => {
                                         }
                                     });
                                     
-                                    navigate(location?.state ? location?.state : '/')
+                                    navigate(from)
                                 }
                             }))
                     })
