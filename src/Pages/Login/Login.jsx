@@ -4,18 +4,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import loginImg from '../../assets/others/authentication2.png'
 import loginBG from '../../assets/others/authentication.png'
-import { BsGoogle } from "react-icons/bs";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SocialLogin";
 
 
 const Login = () => {
     const [disable, setDisable] = useState(true)
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
-    console.log(from ,location);
+    console.log(from, location);
     const navigate = useNavigate()
-    const { loginUser, loginWithGmail } = useContext(AuthContext)
+    const { loginUser } = useContext(AuthContext)
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -72,48 +72,15 @@ const Login = () => {
         }
     }
 
-    const handleGoogle = () => {
-        loginWithGmail()
-            .then(result => {
-                console.log(result.user);
-                Swal.fire({
-                    title: "Congratulation !!!",
-                    text: ' Successfully Logged in',
-                    icon: "success",
-                    showClass: {
-                        popup: `
-                        animate__animated
-                        animate__fadeInUp
-                        animate__faster
-                      `
-                    },
-                    hideClass: {
-                        popup: `
-                        animate__animated
-                        animate__fadeOutDown
-                        animate__faster
-                      `
-                    }
-                });
-                navigate(from)
-            })
-            .catch(error => {
-                console.log(error);
-                Swal.fire({
-                    title: "Error",
-                    text: "try again",
-                    icon: "error"
-                });
-            });
-    }
+
     return (
-        <div className="flex justify-center items-center h-screen" style={{
+        <div className="flex justify-center items-center min-h-screen" style={{
             backgroundImage: `url(${loginBG})`
         }}>
             <Helmet>
                 <title>Bistro Boss || Login</title>
             </Helmet>
-            <div className="flex shadow-2xl w-full max-w-lg mx-auto overflow-hidden rounded-lg lg:max-w-screen-xl text-black"
+            <div className="flex my-20 shadow-2xl w-full max-w-lg mx-auto overflow-hidden rounded-lg lg:max-w-screen-xl text-black"
                 style={{
                     backgroundImage: `url(${loginBG})`
                 }}
@@ -182,11 +149,7 @@ const Login = () => {
                     </div>
                     <div className="flex flex-col  items-center mt-3">
                         <p className="text-sm font-medium">Or Sign in With </p>
-                        <div className="flex justify-center mt-2">
-                            <button onClick={handleGoogle} className="btn btn-outline rounded-full text-xl p-3 text-[#444444] border-[#444444] border-2">
-                                <BsGoogle />
-                            </button>
-                        </div>
+                        <SocialLogin />
                     </div>
                 </div>
             </div>

@@ -7,10 +7,13 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin";
 const SignUp = () => {
-    const { createUser, loginWithGmail, updateUser } = useContext(AuthContext)
+    const { createUser, updateUser } = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
     const {
         register,
         handleSubmit,
@@ -22,32 +25,39 @@ const SignUp = () => {
     const onSubmit = (data) => {
         const { email, password, photoURL, name } = data
         console.log(data, email, password)
+        const user = { email: email, name: name }
         createUser(email, password)
             .then((result) => {
                 console.log(result.user);
                 updateUser(name, photoURL)
                     .then(() => {
-                        reset();
-                        Swal.fire({
-                            title: "Congratulation !!!",
-                            text: ' Successfully Logged in',
-                            icon: "success",
-                            showClass: {
-                                popup: `
-                            animate__animated
-                            animate__fadeInUp
-                            animate__faster
-                          `
-                            },
-                            hideClass: {
-                                popup: `
-                            animate__animated
-                            animate__fadeOutDown
-                            animate__faster
-                          `
-                            }
-                        });
-                        navigate(location?.state ? location?.state : '/')
+                        axiosPublic.post('/users', user)
+                            .then((res => {
+                                if (res.data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        title: "Congratulation !!!",
+                                        text: ' Successfully Logged in',
+                                        icon: "success",
+                                        showClass: {
+                                            popup: `
+                                    animate__animated
+                                    animate__fadeInUp
+                                    animate__faster
+                                  `
+                                        },
+                                        hideClass: {
+                                            popup: `
+                                    animate__animated
+                                    animate__fadeOutDown
+                                    animate__faster
+                                  `
+                                        }
+                                    });
+                                    
+                                    navigate(location?.state ? location?.state : '/')
+                                }
+                            }))
                     })
                     .catch((error) => {
                         console.log(error);
@@ -68,49 +78,16 @@ const SignUp = () => {
             });
     };
 
-    const handleGoogle = () => {
-        loginWithGmail()
-            .then((result) => {
-                console.log(result);
-                Swal.fire({
-                    title: "Congratulation !!!",
-                    text: ' Successfully Logged in',
-                    icon: "success",
-                    showClass: {
-                        popup: `
-                        animate__animated
-                        animate__fadeInUp
-                        animate__faster
-                      `
-                    },
-                    hideClass: {
-                        popup: `
-                        animate__animated
-                        animate__fadeOutDown
-                        animate__faster
-                      `
-                    }
-                });
-                navigate(location?.state ? location?.state : '/')
-            })
-            .catch((error) => {
-                console.log(error);
-                Swal.fire({
-                    title: "Error",
-                    text: "try again",
-                    icon: "error"
-                });
-            });
-    };
+
     return (
         <div>
-            <div className="flex justify-center items-center h-screen" style={{
+            <div className="flex justify-center items-center min-h-screen" style={{
                 backgroundImage: `url(${loginBG})`
             }}>
                 <Helmet>
                     <title>Bistro Boss || Login</title>
                 </Helmet>
-                <div className="flex shadow-2xl w-full max-w-lg mx-auto overflow-hidden rounded-lg lg:max-w-screen-xl text-black"
+                <div className="flex my-20 shadow-2xl w-full max-w-lg mx-auto overflow-hidden rounded-lg lg:max-w-screen-xl text-black"
                     style={{
                         backgroundImage: `url(${loginBG})`
                     }}
@@ -200,11 +177,7 @@ const SignUp = () => {
                         </div>
                         <div className="flex flex-col  items-center mt-3">
                             <p className="text-sm font-medium">Or Sign Up With </p>
-                            <div className="flex justify-center mt-2">
-                                <button onClick={handleGoogle} className="btn btn-outline rounded-full text-xl p-3 text-[#444444] border-[#444444] border-2">
-                                    <BsGoogle />
-                                </button>
-                            </div>
+                           <SocialLogin/>
                         </div>
                     </div>
                 </div>

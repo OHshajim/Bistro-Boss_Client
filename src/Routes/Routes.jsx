@@ -8,7 +8,7 @@ import Menu from "../Pages/Menu/Menu";
 import Order from "../Pages/OrderFood/Order/Order";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
-// import PrivetRoute from "./PrivetRoute";
+import PrivetRoute from "./PrivetRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
 
@@ -45,10 +45,10 @@ const Routes = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard />,
+        element: <PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
         children: [
             {
-                path: "/dashboard/cart",
+                path: "cart",
                 element: <Cart />,
             }
         ]
