@@ -17,7 +17,7 @@ const SocialLogin = () => {
                 const user = { email: email, name: displayName }
                 axiosPublic.post('/users', user)
                     .then((res => {
-                        console.log(res);
+                        console.log(res.data);
                         if (res.data.insertedId) {
                             Swal.fire({
                                 title: "Congratulation !!!",
