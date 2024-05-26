@@ -4,9 +4,10 @@ import { HiUserGroup } from "react-icons/hi";
 import { MdEmail } from "react-icons/md";
 
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Dashboard = () => {
-    const isAdmin = true;
+    const [isAdmin] = useAdmin()
     return (
         <div className="flex ">
             <div className="bg-[#D1A054] text-[#151515] max-w-xl min-h-screen px-9 pt-10">
