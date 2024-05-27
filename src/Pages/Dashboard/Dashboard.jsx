@@ -23,7 +23,7 @@ const Dashboard = () => {
                                     }><FaHome className="text-2xl" />
                                     Admin Home</NavLink>
                                 </li>
-                                <li><NavLink to='/dashboard/reservation'
+                                <li><NavLink to='/dashboard/addItems'
                                     className={({ isActive, isPending }) =>
                                         isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
                                     }><FaUtensils className="text-2xl" />

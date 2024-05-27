@@ -12,6 +12,7 @@ import PrivetRoute from "./PrivetRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Cart from "../Pages/Dashboard/Cart/Cart";
 import AllUser from "../Pages/Dashboard/Admin/AllUser";
+import AddItems from "../Pages/Dashboard/Admin/AddItems";
 
 const Routes = createBrowserRouter([
     {
@@ -48,13 +49,19 @@ const Routes = createBrowserRouter([
         path: 'dashboard',
         element: <PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
         children: [
+            //user
             {
                 path: "cart",
                 element: <Cart />,
             },
+            // admin
             {
                 path: "allUsers",
                 element: <AllUser />,
+            },
+            {
+                path: "addItems",
+                element: <AddItems />,
             }
         ]
     }
