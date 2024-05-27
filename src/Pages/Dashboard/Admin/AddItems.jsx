@@ -3,6 +3,7 @@ import { FaUtensils } from "react-icons/fa";
 import SectionsTitle from "../../../Shared/SectionsTitle";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 const AddItems = () => {
     const {
         register,
@@ -12,17 +13,41 @@ const AddItems = () => {
     } = useForm()
     const axiosPublic = useAxiosPublic()
     const axiosSecure = useAxiosSecure()
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data)
-        const res = axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, data.image)
-        console.log(res);
-        if (res.data) {
-            const newItem = { image: res.data.display_url, name: data.name, recipe: data.recipe, price: data.price }
-            axiosSecure.post('/menu', newItem)
-                .then(res => {
-                    console.log(res);
-                    reset()
-                })
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`, imageFile, {
+            headers: {
+                "Content-Type": 'multipart/form-data'
+            }
+        })
+        console.log(res.data.data);
+        if (res.data.success) {
+            const newItem = {
+                image: res.data.data.display_url, name: data.name, recipe: data.recipe,
+                price: parseFloat(data.price)
+            }
+            const menuRes = await axiosSecure.post('/menu', newItem)
+            console.log(menuRes);
+            if (menuRes) {
+                console.log(res);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Add item successfully"
+                });
+                reset()
+            }
         }
     }
     return (
