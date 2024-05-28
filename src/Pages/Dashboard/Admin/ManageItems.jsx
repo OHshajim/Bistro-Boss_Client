@@ -1,7 +1,9 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import { TbTrash, TbUpload } from "react-icons/tb";
+import { TbTrash } from "react-icons/tb";
 import useMenu from "../../../Hooks/useMenu";
+import { FiEdit } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
     const [menu, , refetch] = useMenu()
@@ -31,9 +33,6 @@ const ManageItems = () => {
                     })
             }
         });
-    }
-    const handleUpdate = id => {
-        console.log(id);
     }
     return (
         <div className="p-14 ">
@@ -74,7 +73,9 @@ const ManageItems = () => {
                                 </td>
                                 <td>${item.price}</td>
                                 <th>
-                                    <button onClick={() => handleUpdate(item._id)} className="btn btn-ghost text-xl hover:text-yellow-600 hover:bg-transparent"><TbUpload /></button>
+                                    <Link to='/updateItem'>
+                                        <button className="btn btn-ghost text-xl hover:text-yellow-600 hover:bg-transparent"><FiEdit /></button>
+                                    </Link>
                                 </th>
                                 <th>
                                     <button onClick={() => handleDelete(item._id)} className="btn btn-ghost text-xl hover:text-red-600 hover:bg-transparent"><TbTrash /></button>
