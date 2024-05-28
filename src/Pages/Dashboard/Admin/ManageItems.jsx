@@ -4,9 +4,8 @@ import { TbTrash, TbUpload } from "react-icons/tb";
 import useMenu from "../../../Hooks/useMenu";
 
 const ManageItems = () => {
-    const [menu] = useMenu()
+    const [menu, , refetch] = useMenu()
     const axiosSecure = useAxiosSecure();
-    // const [, refetch] = useCart()
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -22,10 +21,10 @@ const ManageItems = () => {
                 axiosSecure.delete(`/menuItem/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
-                            // refetch()
+                            refetch()
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your item has been deleted.",
+                                text: "Item has been deleted.",
                                 icon: "success"
                             });
                         }
