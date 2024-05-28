@@ -29,13 +29,12 @@ const Dashboard = () => {
                                     }><FaUtensils className="text-2xl" />
                                     add items</NavLink>
                                 </li>
-                                <li><NavLink to='/dashboard/cart'
+                                <li><NavLink to='/dashboard/manageItems'
                                     className={({ isActive, isPending }) =>
                                         isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
                                     }><FaList className="text-2xl" />
                                     Manage Items</NavLink>
                                 </li>
-
                                 <li><NavLink to='/dashboard/myBookings'
                                     className={({ isActive, isPending }) =>
                                         isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
