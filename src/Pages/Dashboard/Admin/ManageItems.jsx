@@ -19,7 +19,7 @@ const ManageItems = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/carts/${id}`)
+                axiosSecure.delete(`/menuItem/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             // refetch()
@@ -75,7 +75,7 @@ const ManageItems = () => {
                                 </td>
                                 <td>${item.price}</td>
                                 <th>
-                                    <button onClick={() => handleUpdate(item._id)} className="btn btn-ghost text-xl hover:text-yellow-600 hover:bg-transparent"><TbUpload/></button>
+                                    <button onClick={() => handleUpdate(item._id)} className="btn btn-ghost text-xl hover:text-yellow-600 hover:bg-transparent"><TbUpload /></button>
                                 </th>
                                 <th>
                                     <button onClick={() => handleDelete(item._id)} className="btn btn-ghost text-xl hover:text-red-600 hover:bg-transparent"><TbTrash /></button>

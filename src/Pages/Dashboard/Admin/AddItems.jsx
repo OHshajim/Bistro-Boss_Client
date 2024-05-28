@@ -24,8 +24,11 @@ const AddItems = () => {
         console.log(res.data.data);
         if (res.data.success) {
             const newItem = {
-                image: res.data.data.display_url, name: data.name, recipe: data.recipe,
-                price: parseFloat(data.price)
+                image: res.data.data.display_url,
+                name: data.name,
+                recipe: data.recipe,
+                price: parseFloat(data.price),
+                category: data.category
             }
             const menuRes = await axiosSecure.post('/menu', newItem)
             console.log(menuRes);
