@@ -73,7 +73,7 @@ const ManageItems = () => {
                                 </td>
                                 <td>${item.price}</td>
                                 <th>
-                                    <Link to='/updateItem'>
+                                    <Link to={`/dashboard/updateItem/${item._id}`}>
                                         <button className="btn btn-ghost text-xl hover:text-yellow-600 hover:bg-transparent"><FiEdit /></button>
                                     </Link>
                                 </th>
