@@ -10,11 +10,12 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivetRoute from "./PrivetRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import Cart from "../Pages/Dashboard/Cart/Cart";
 import AllUser from "../Pages/Dashboard/Admin/AllUser";
 import AddItems from "../Pages/Dashboard/Admin/AddItems";
 import ManageItems from "../Pages/Dashboard/Admin/ManageItems";
 import UpdateItem from "../Pages/Dashboard/Admin/UpdateItem";
+import Cart from "../Pages/Dashboard/User/Cart/Cart";
+import Payment from "../Pages/Dashboard/User/Payment/Payment";
 
 const Routes = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ const Routes = createBrowserRouter([
             {
                 path: "cart",
                 element: <Cart />,
+            },
+            {
+                path: "payment",
+                element: <Payment/>,
             },
             // admin
             {

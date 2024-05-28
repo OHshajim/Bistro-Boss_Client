@@ -1,7 +1,8 @@
 import { TbTrash } from "react-icons/tb";
-import useCart from "../../../Hooks/useCart";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import useCart from "../../../../Hooks/useCart";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const [cart] = useCart()
@@ -39,7 +40,10 @@ const Cart = () => {
             <div className="uppercase text-3xl font-bold flex justify-between ">
                 <h3 >total Orders : {cart.length}</h3>
                 <h3 >total price : ${totalPrice}</h3>
-                <button className="text-xl text-white bg-[#D1A054] btn">Pay</button>
+                {cart.length ?
+                    <Link to={'/dashboard/payment'}><button className="text-xl text-white bg-[#D1A054] btn">Pay</button></Link>
+                    : 
+                    <button disabled className="text-xl text-white bg-[#D1A054] btn">Pay</button>}
             </div>
             <div className="overflow-x-auto mt-8">
                 <table className="table">
