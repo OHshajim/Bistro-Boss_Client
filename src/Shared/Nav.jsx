@@ -3,10 +3,12 @@ import { NavLink, } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { TiShoppingCart } from "react-icons/ti";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const Nav = () => {
     const { user, logout } = useContext(AuthContext)
     const [cart] = useCart()
+    const [isAdmin] = useAdmin()
     const handleLogout = () => {
         logout()
     }
@@ -14,6 +16,21 @@ const Nav = () => {
         <li><NavLink to='/' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25] " : ""
         }>Home</NavLink></li>
+
+        {/* user || admin */}
+        {
+            user && isAdmin && <li><NavLink to='/dashboard/adminHome' className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-[#EEFF25] " : ""
+            }>Dashboard</NavLink></li>
+        }
+        {
+            user && !isAdmin && <li><NavLink to='/dashboard/userHome' className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-[#EEFF25] " : ""
+            }>Dashboard</NavLink></li>
+        }
+
+        {/* Other Routes */}
+
         <li><NavLink to='/menu' className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-[#EEFF25]" : ""
         }    >Our Menu</NavLink></li>

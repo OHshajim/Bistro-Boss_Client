@@ -17,6 +17,9 @@ import UpdateItem from "../Pages/Dashboard/Admin/UpdateItem";
 import Cart from "../Pages/Dashboard/User/Cart/Cart";
 import Payment from "../Pages/Dashboard/User/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory/PaymentHistory";
+import DashboardUserHome from "../Pages/Dashboard/User/DashboardUserHome/DashboardUserHome";
+import DashboardAdminHome from "../Pages/Dashboard/Admin/DashboardAdminHome";
+import AdminRoute from "./AdminRoute";
 
 const Routes = createBrowserRouter([
     {
@@ -55,34 +58,42 @@ const Routes = createBrowserRouter([
         children: [
             //user
             {
+                path: "userHome",
+                element: <DashboardUserHome/>,
+            },
+            {
                 path: "cart",
                 element: <Cart />,
             },
             {
                 path: "payment",
-                element: <Payment/>,
+                element: <Payment />,
             },
             {
                 path: "paymentHistory",
-                element: <PaymentHistory/>,
+                element: <PaymentHistory />,
             },
             // admin
             {
+                path: "adminHome",
+                element: <AdminRoute><DashboardAdminHome /></AdminRoute>,
+            },
+            {
                 path: "allUsers",
-                element: <AllUser />,
+                element: <AdminRoute><AllUser /></AdminRoute>,
             },
             {
                 path: "addItems",
-                element: <AddItems />,
+                element: <AdminRoute><AddItems /></AdminRoute>,
             },
             {
                 path: "manageItems",
-                element: <ManageItems />,
+                element: <AdminRoute><ManageItems /></AdminRoute>,
             },
             {
                 path: "updateItem/:id",
-                element: <UpdateItem />,
-                loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
+                element: <AdminRoute><UpdateItem /></AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
             },
         ]
     }
