@@ -18,7 +18,7 @@ const Dashboard = () => {
                         isAdmin ?
                             // admin
                             <>
-                                <li><NavLink to='/dashboard/home'
+                                <li><NavLink to='/dashboard/adminHome'
                                     className={({ isActive, isPending }) =>
                                         isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
                                     }><FaHome className="text-2xl" />
@@ -52,7 +52,7 @@ const Dashboard = () => {
                             :
                             // users
                             <>
-                                <li><NavLink to='/dashboard/home'
+                                <li><NavLink to='/dashboard/userHome'
                                     className={({ isActive, isPending }) =>
                                         isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
                                     }><FaHome className="text-2xl" />
