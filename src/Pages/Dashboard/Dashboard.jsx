@@ -5,6 +5,7 @@ import { MdEmail } from "react-icons/md";
 
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
+import { FaWallet } from "react-icons/fa6";
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin()
@@ -62,6 +63,12 @@ const Dashboard = () => {
                                         isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
                                     }><FaCalendar className="text-2xl" />
                                     Reservation</NavLink>
+                                </li>
+                                <li><NavLink to='/dashboard/paymentHistory'
+                                    className={({ isActive, isPending }) =>
+                                        isPending ? "pending" : isActive ? "text-white flex items-center gap-2" : "flex items-center gap-2"
+                                    }><FaWallet className="text-2xl" />
+                                    payment history </NavLink>
                                 </li>
                                 <li><NavLink to='/dashboard/cart'
                                     className={({ isActive, isPending }) =>
