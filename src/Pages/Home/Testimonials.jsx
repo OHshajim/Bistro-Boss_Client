@@ -17,7 +17,7 @@ import { TfiCommentsSmiley } from "react-icons/tfi";
 const Testimonials = () => {
     const [reviews, setReview] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/reviews')
+        fetch('https://bistro-boss-server-roan-eight.vercel.app/reviews')
             .then(res => res.json())
             .then(data => {
                 setReview(data)
