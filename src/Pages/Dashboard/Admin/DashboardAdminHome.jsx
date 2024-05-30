@@ -19,7 +19,7 @@ const DashboardAdminHome = () => {
             return (res.data);
         }
     })
-    const { data: cartData } = useQuery({
+    const { data: cartData=[] } = useQuery({
         queryKey: ['/order-stats'],
         queryFn: async () => {
             const res = await axiosSecure.get('/order-stats')
