@@ -1,6 +1,7 @@
-#RestaurantManagement 
-#Bistro Boss
-***Hosting URL: https://bistro-boss-89be3.web.app 
+# Bistro Boss 
+<h3>Restaurant Management Webpage</h3> 
+
+Hosting URL: https://bistro-boss-89be3.web.app 
 
 
 
