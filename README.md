@@ -3,7 +3,11 @@
 
 Hosting URL: https://bistro-boss-89be3.web.app 
 
-
+Bullet points featuring the website: </br>
+****** Best Features ******
+1. Users can paid by stipe .
+2. In this webSite, Organizers have differant opportunities from Users on admin dashboard.
+3. Organizer can update the role of user .
 
 # Secret Key
  VITE_apiKey= {firebase} <br/>
