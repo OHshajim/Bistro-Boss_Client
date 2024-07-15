@@ -22,3 +22,6 @@ Bullet points featuring the website: </br>
 
 <h3>****** Technologies ******</h3>
 React.js || Firebase || Tailwind CSS || DaisyUI || Axios || TanStack Query || JWT
+
+# Server 
+Repository Link :https://github.com/OHshajim/Bistro-Boss-Server
